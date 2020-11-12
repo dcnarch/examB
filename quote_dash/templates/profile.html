@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>Welcome {{user.first_name}} {{user.last_name}}!</h1>
+    <a href="myaccount">Edit My Account</a>
+    <form action="/logout" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-primary">Logout</button>
+    </form>
+    <div id='quotes'>
+        <section>
+            {% for quote in user.user_quotes.all %}
+                <p>{{quote.author}}: {{quote.quote_field}}</p>
+                <p>Posted by <a href="user/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></p>
+                <a href="delete_quote">Delete</a>
+            {% endfor %}
+        </section>
+    </div>
+    <div id="add-quote">
+        <section>
+            <h2>Add A Quote!</h2>
+            <form action="/create_quote" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="author">Author</label>
+                    <input type="text" name="author" id="author" class="form-control">
+                    <label for="quote_field">Quote</label>
+                    <textarea name="content" cols="30" rows="5"></textarea>
+                    <input type="Submit" value="Submit">
+                </div>
+            </form>
+        </section>
+    </div>
+</body>
+</html>

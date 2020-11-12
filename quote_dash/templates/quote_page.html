@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Quotes</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>{{user.first_name}} {{user.last_name}} Quotes</h1>
+    <div id='quotes'>
+        {% for quote in self.user_quotes.all %}
+        <p>{{post.quote}}</p><br>
+        {% endfor %}
+    </div>
+    <a href="quotes">Back</a>
+    <form action="/logout" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-primary">Logout</button>
+    </form>
+</body>
+</html>
